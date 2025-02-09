@@ -654,15 +654,6 @@ function compositeParserTests(
             it("should be able to refer to other parsers by name", () => {
                 const parser = Parser.start().namely("self");
 
-                // @ts-ignore
-                const stop = Parser.start().namely("stop");
-
-                // @ts-ignore
-                const twoCells = Parser.start()
-                    .namely("twoCells")
-                    .nest("left", { type: "self" })
-                    .nest("right", { type: "stop" });
-
                 parser.uint8("type").choice("data", {
                     tag: "type",
                     choices: {
