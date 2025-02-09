@@ -61,11 +61,11 @@ const ipHeader = new Parser()
   .uint16("checksum")
   .array("src", {
     type: "uint8",
-    length: 4
+    length: 4,
   })
   .array("dst", {
     type: "uint8",
-    length: 4
+    length: 4,
   });
 
 // Prepare buffer to parse.
@@ -88,34 +88,39 @@ The npm package provides entry points for both CommonJS and ES modules.
 ## API
 
 ### new Parser()
+
 Create an empty parser object that parses nothing.
 
 ### parse(buffer)
+
 Parse a `Buffer`/`Uint8Array` object `buffer` with this parser and return the
 resulting object. When `parse(buffer)` is called for the first time, the
 associated parser code is compiled on-the-fly and internally cached.
 
 ### encode(object)
+
 Encode an object `object` with this parser and return the resulting buffer.
 
 ```typescript
 const parser = new Parser()
-  .int8('age')
-  .string('name', { zeroTerminated: true });
+  .int8("age")
+  .string("name", { zeroTerminated: true });
 
 const buffer = parser.encode({
   age: 25,
-  name: 'John'
-}); 
+  name: "John",
+});
 
 // Results in: <Buffer 19 4a 6f 68 6e 00>
 ```
 
 ### create(constructorFunction)
+
 Set the constructor function that should be called to create the object
 returned from the `parse` method.
 
 ### [u]int{8, 16, 32, 64}{le, be}(name[, options])
+
 Parse bytes as an integer and store it in a variable named `name`. `name`
 should consist only of alphanumeric characters and start with an alphabet.
 Number of bits can be chosen from 8, 16, 32 and 64. Byte-ordering can be either
@@ -136,15 +141,17 @@ const parser = new Parser()
   // Signed 16-bit integer (big endian)
   .int16be("c")
   // signed 64-bit integer (big endian)
-  .int64be("d")
+  .int64be("d");
 ```
 
 ### bit\[1-32\](name[, options])
+
 Parse bytes as a bit field and store it in variable `name`. There are 32
 methods from `bit1` to `bit32` each corresponding to 1-bit-length to
 32-bits-length bit field.
 
 ### {float, double}{le, be}(name[, options])
+
 Parse bytes as a floating-point value and stores it to a variable named
 `name`.
 
@@ -157,6 +164,7 @@ const parser = new Parser()
 ```
 
 ### string(name[, options])
+
 Parse bytes as a string. `name` should consist only of alpha numeric
 characters and start with an alphabet. `options` is an object which can have
 the following keys:
@@ -175,6 +183,7 @@ the following keys:
   null characters from end of the string.
 
 ### buffer(name[, options])
+
 Parse bytes as a buffer. Its type will be the same as the input to
 `parse(buffer)`. `name` should consist only of alpha numeric characters and
 start with an alphabet. `options` is an object which can have the following
@@ -195,6 +204,7 @@ keys:
   function returns true.
 
 ### array(name, options)
+
 Parse bytes as an array. `options` is an object which can have the following
 keys:
 
@@ -216,61 +226,62 @@ const parser = new Parser()
   // Statically sized array
   .array("data", {
     type: "int32",
-    length: 8
+    length: 8,
   })
 
   // Dynamically sized array (references another variable)
   .uint8("dataLength")
   .array("data2", {
     type: "int32",
-    length: "dataLength"
+    length: "dataLength",
   })
 
   // Dynamically sized array (with some calculation)
   .array("data3", {
     type: "int32",
-    length: function() {
+    length: function () {
       return this.dataLength - 1;
-    } // other fields are available through `this`
+    }, // other fields are available through `this`
   })
 
   // Statically sized array
   .array("data4", {
     type: "int32",
-    lengthInBytes: 16
+    lengthInBytes: 16,
   })
 
   // Dynamically sized array (references another variable)
   .uint8("dataLengthInBytes")
   .array("data5", {
     type: "int32",
-    lengthInBytes: "dataLengthInBytes"
+    lengthInBytes: "dataLengthInBytes",
   })
 
   // Dynamically sized array (with some calculation)
   .array("data6", {
     type: "int32",
-    lengthInBytes: function() {
+    lengthInBytes: function () {
       return this.dataLengthInBytes - 4;
-    } // other fields are available through `this`
+    }, // other fields are available through `this`
   })
 
   // Dynamically sized array (with stop-check on parsed item)
   .array("data7", {
     type: "int32",
-    readUntil: function(item, buffer) {
+    readUntil: function (item, buffer) {
       return item === 42;
-    } // stop when specific item is parsed. buffer can be used to perform a read-ahead.
+    }, // stop when specific item is parsed. buffer can be used to perform a read-ahead.
   })
 
   // Use user defined parser object
   .array("data8", {
     type: userDefinedParser,
-    length: "dataLength"
+    length: "dataLength",
   });
 ```
 
 ### choice([name,] options)
+
 Choose one parser from multiple parsers according to a field value and store
 its parsed result to key `name`. If `name` is null or omitted, the result of
 the chosen parser is directly embedded into the current object. `options` is
@@ -302,6 +313,7 @@ Combining `choice` with `array` is an idiom to parse
 [TLV](http://en.wikipedia.org/wiki/Type-length-value)-based binary formats.
 
 ### nest([name,] options)
+
 Execute an inner parser and store its result to key `name`. If `name` is null
 or omitted, the result of the inner parser is directly embedded into the
 current object. `options` is an object which can have the following keys:
@@ -309,16 +321,18 @@ current object. `options` is an object which can have the following keys:
 - `type` - (Required) A `Parser` object.
 
 ### pointer(name [,options])
+
 Jump to `offset`, execute parser for `type` and rewind to previous offset.
 Useful for parsing binary formats such as ELF where the offset of a field is
 pointed by another field.
 
 - `type` - (Required) Can be a string `[u]int{8, 16, 32, 64}{le, be}`
-   or a user defined `Parser` object.
+  or a user defined `Parser` object.
 - `offset` - (Required) Indicates absolute offset from the beginning of the
   input buffer. Can be a number, string or a function.
 
 ### saveOffset(name [,options])
+
 Save the current buffer offset as key `name`. This function is only useful
 when called after another function which would advance the internal buffer
 offset.
@@ -345,11 +359,13 @@ const parser = new Parser()
 ```
 
 ### seek(relOffset)
+
 Move the buffer offset for `relOffset` bytes from the current position. Use a
 negative `relOffset` value to rewind the offset. This method was previously
 named `skip(length)`.
 
 ### endianness(endianness)
+
 Define what endianness to use in this parser. `endianness` can be either
 `"little"` or `"big"`. The default endianness of `Parser` is set to big-endian.
 
@@ -365,6 +381,7 @@ const parser = new Parser()
 ```
 
 ### namely(alias)
+
 Set an alias to this parser, so that it can be referred to by name in methods
 like `.array`, `.nest` and `.choice`, without the requirement to have an
 instance of this parser.
@@ -388,8 +405,8 @@ const parser = new Parser()
       3: Parser.start()
         .nest("one", { type: "self" })
         .nest("two", { type: "self" })
-        .nest("three", { type: "self" })
-    }
+        .nest("three", { type: "self" }),
+    },
   });
 
 //        2
@@ -403,14 +420,9 @@ const parser = new Parser()
 //     0
 
 const buffer = Buffer.from([
-  2,
-  /* left -> */ 3,
-    /* one   -> */ 1, /* -> */ 0,
-    /* two   -> */ 0,
-    /* three -> */ 2,
-      /* left  -> */ 1, /* -> */ 0,
-      /* right -> */ 0,
-  /* right -> */ 1, /* -> */ 0
+  2, /* left -> */ 3, /* one   -> */ 1, /* -> */ 0, /* two   -> */ 0,
+  /* three -> */ 2, /* left  -> */ 1, /* -> */ 0, /* right -> */ 0,
+  /* right -> */ 1, /* -> */ 0,
 ]);
 
 parser.parse(buffer);
@@ -449,8 +461,8 @@ parser.uint8("type").choice("data", {
   choices: {
     0: "stop",
     1: "self",
-    2: "twoCells"
-  }
+    2: "twoCells",
+  },
 });
 
 const buffer = Buffer.from([2, /* left */ 1, 1, 0, /* right */ 0]);
@@ -459,6 +471,7 @@ parser.parse(buffer);
 ```
 
 ### wrapped([name,] options)
+
 Read data, then wrap it by transforming it by a function for further parsing.
 It works similarly to a buffer where it reads a block of data. But instead of
 returning the buffer it will pass the buffer on to a parser for further processing.
@@ -483,10 +496,9 @@ current object.
 ```javascript
 const zlib = require("zlib");
 // A parser to run on the data returned by the wrapper
-const textParser = Parser.start()
-  .string("text", {
-    zeroTerminated: true,
-  });
+const textParser = Parser.start().string("text", {
+  zeroTerminated: true,
+});
 
 const mainParser = Parser.start()
   // Read length of the data to wrap
@@ -508,32 +520,37 @@ mainParser.parse(buffer);
 ```
 
 ### sizeOf()
+
 Returns how many bytes this parser consumes. If the size of the parser cannot
 be statically determined, a `NaN` is returned.
 
 ### compile()
+
 Compile this parser on-the-fly and cache its result. Usually, there is no need
 to call this method directly, since it's called when `parse(buffer)` is
 executed for the first time.
 
 ### getCode()
+
 Dynamically generates the code for this parser and returns it as a string.
 Useful for debugging the generated code.
 
 ### Common options
+
 These options can be used in all parsers.
 
 - `formatter` - Function that transforms the parsed value into a more desired
   form.
-    ```javascript
-    const parser = new Parser().array("ipv4", {
-      type: uint8,
-      length: "4",
-      formatter: function(arr) {
-        return arr.join(".");
-      }
-    });
-    ```
+
+  ```javascript
+  const parser = new Parser().array("ipv4", {
+    type: uint8,
+    length: "4",
+    formatter: function (arr) {
+      return arr.join(".");
+    },
+  });
+  ```
 
 - `assert` - Do assertion on the parsed result (useful for checking magic
   numbers and so on). If `assert` is a `string` or `number`, the actual parsed
@@ -542,24 +559,25 @@ These options can be used in all parsers.
   function, that function is executed with one argument (the parsed result)
   and if it returns false, an exception is thrown.
 
-    ```javascript
-    // simple maginc number validation
-    const ClassFile = Parser.start()
-      .endianness("big")
-      .uint32("magic", { assert: 0xcafebabe });
+  ```javascript
+  // simple maginc number validation
+  const ClassFile = Parser.start()
+    .endianness("big")
+    .uint32("magic", { assert: 0xcafebabe });
 
-    // Doing more complex assertion with a predicate function
-    const parser = new Parser()
-      .int16le("a")
-      .int16le("b")
-      .int16le("c", {
-        assert: function(x) {
-          return this.a + this.b === x;
-        }
-      });
-    ```
+  // Doing more complex assertion with a predicate function
+  const parser = new Parser()
+    .int16le("a")
+    .int16le("b")
+    .int16le("c", {
+      assert: function (x) {
+        return this.a + this.b === x;
+      },
+    });
+  ```
 
 ### Context variables
+
 You can use some special fields while parsing to traverse your structure.
 These context variables will be removed after the parsing process.
 Note that this feature is turned off by default for performance reasons, and
@@ -577,9 +595,9 @@ Otherwise, the context variables will not be present.
     })
     .array("data", {
       type: "int32",
-      length: function() {
+      length: function () {
         return this.$parent.header.length;
-      }
+      },
     });
   ```
 
@@ -592,14 +610,12 @@ Otherwise, the context variables will not be present.
       type: new Parser().uint32("length"),
     })
     .nest("data", {
-      type: new Parser()
-        .uint32("value")
-        .array("data", {
-          type: "int32",
-          length: function() {
-            return this.$root.header.length;
-          }
-        }),
+      type: new Parser().uint32("value").array("data", {
+        type: "int32",
+        length: function () {
+          return this.$root.header.length;
+        },
+      }),
     });
   ```
 
@@ -613,17 +629,17 @@ Otherwise, the context variables will not be present.
       type: new Parser().uint32("length"),
     })
     .nest("data", {
-      type: new Parser()
-        .uint32("value")
-        .array("data", {
-          type: new Parser().nest({
-            type: new Parser().uint8("_tmp"),
-            formatter: function(item) {
-              return this.$index % 2 === 0 ? item._tmp : String.fromCharCode(item._tmp);
-            }
-          }),
-          length: "$root.header.length"
+      type: new Parser().uint32("value").array("data", {
+        type: new Parser().nest({
+          type: new Parser().uint8("_tmp"),
+          formatter: function (item) {
+            return this.$index % 2 === 0
+              ? item._tmp
+              : String.fromCharCode(item._tmp);
+          },
         }),
+        length: "$root.header.length",
+      }),
     });
   ```
 

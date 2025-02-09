@@ -1,39 +1,18 @@
-name: test-bun
+name: Test Bun
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  build-and-start:
+    runs-on: ubuntu-latest # Linux base image
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Bun
-        shell: bash
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          echo "$HOME/.bun/bin" >> $GITHUB_PATH
-
-      - name: Install dependencies with Bun
-        run: bun install
-
-      - name: Format code with Bun
-        run: bun run format
-
-      - name: Build project (if applicable)
-        run: |
-          if bun run build --if-present; then
-            echo "Build succeeded"
-          else
-            echo "No build script found"
-          fi
-
-      - name: Run tests
-        env:
-          CI: true
-        run: bun test
+      - uses: actions/checkout@v3 # Checkout repo
+      - uses: oven-sh/setup-bun@v1 # Setup bun
+        with:
+          bun-version: latest
+      - run: bun install
+      - run: bun test
