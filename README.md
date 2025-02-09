@@ -4,11 +4,11 @@
 [![npm](https://img.shields.io/npm/v/binary-codec)](https://www.npmjs.com/package/binary-codec)
 [![license](https://img.shields.io/github/license/Inplex-sys/binary-codec)](https://github.com/Inplex-sys/binary-codec/blob/master/LICENSE)
 
-Binary-parser is a parser builder and encoder for JavaScript that enables you to write
+binary-codec is a parser builder and encoder for JavaScript that enables you to write
 efficient binary parsers in a simple and declarative manner.
 
 It supports all common data types required to analyze a structured binary
-data. Binary-parser dynamically generates and compiles the parser code
+data. binary-codec dynamically generates and compiles the parser code
 on-the-fly, which runs as fast as a hand-written parser (which takes much more
 time and effort to write). Supported data types are:
 
@@ -26,7 +26,7 @@ time and effort to write). Supported data types are:
 - [Pointers](#pointername-options)
 - User defined types (arbitrary combination of builtin types)
 
-Binary-parser was inspired by [BinData](https://github.com/dmendel/bindata)
+binary-codec was inspired by [BinData](https://github.com/dmendel/bindata)
 and [binary](https://github.com/substack/node-binary).
 
 ## Quick Start
@@ -41,10 +41,10 @@ and [binary](https://github.com/substack/node-binary).
 
 ```javascript
 // Module import
-const Parser = require("binary-parser").Parser;
+const Parser = require("binary-codec").Parser;
 
 // Alternative way to import the module
-// import { Parser } from "binary-parser";
+// import { Parser } from "binary-codec";
 
 // Build an IP packet header Parser
 const ipHeader = new Parser()
@@ -77,10 +77,10 @@ console.log(ipHeader.parse(buf));
 
 ## Installation
 
-You can install `binary-parser` via npm:
+You can install `binary-codec` via npm:
 
 ```bash
-npm install binary-parser
+npm install binary-codec
 ```
 
 The npm package provides entry points for both CommonJS and ES modules.
@@ -646,8 +646,8 @@ new feature. Pull requests are welcome.
 To contribute code, first clone this repo, then install the dependencies:
 
 ```bash
-git clone https://github.com/keichi/binary-parser.git
-cd binary-parser
+git clone https://github.com/keichi/binary-codec.git
+cd binary-codec
 npm install
 ```
 
