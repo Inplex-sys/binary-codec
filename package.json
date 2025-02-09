@@ -47,16 +47,16 @@
     "bit"
   ],
   "author": {
-    "name": "Keichi Takahashi",
-    "email": "hello@keichi.dev",
-    "url": "https://keichi.dev/"
+    "name": "Inplex-sys",
+    "email": "king-backer-rumble@duck.com",
+    "url": "https://github.com/Inplex-sys/binparse"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/keichi/binary-parser.git"
+    "url": "https://github.com/Inplex-sys/binparse.git"
   },
-  "bugs": "http://github.com/keichi/binary-parser/issues",
+  "bugs": "https://github.com/Inplex-sys/binparse/issues",
   "engines": {
     "node": ">=14"
   }
