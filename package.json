@@ -1,5 +1,5 @@
 {
-  "name": "binparse",
+  "name": "binary-codec",
   "version": "2.2.1",
   "description": "Blazing-fast binary parser & encoder",
   "main": "dist/binary_parser.js",
@@ -49,14 +49,14 @@
   "author": {
     "name": "Inplex-sys",
     "email": "king-backer-rumble@duck.com",
-    "url": "https://github.com/Inplex-sys/binparse"
+    "url": "https://github.com/Inplex-sys/binary-codec"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Inplex-sys/binparse.git"
+    "url": "https://github.com/Inplex-sys/binary-codec.git"
   },
-  "bugs": "https://github.com/Inplex-sys/binparse/issues",
+  "bugs": "https://github.com/Inplex-sys/binary-codec/issues",
   "engines": {
     "node": ">=14"
   }
