@@ -1,4 +1,4 @@
-# Binparse
+# Binary Codec
 
 [![build](https://github.com/keichi/binary-parser/workflows/build/badge.svg)](https://github.com/keichi/binary-parser/actions?query=workflow%3Abuild)
 [![npm](https://img.shields.io/npm/v/binary-parser)](https://www.npmjs.com/package/binary-parser)
