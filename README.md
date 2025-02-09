@@ -1,8 +1,8 @@
 # Binary Codec
 
-[![build](https://github.com/keichi/binary-parser/workflows/build/badge.svg)](https://github.com/keichi/binary-parser/actions?query=workflow%3Abuild)
-[![npm](https://img.shields.io/npm/v/binary-parser)](https://www.npmjs.com/package/binary-parser)
-[![license](https://img.shields.io/github/license/keichi/binary-parser)](https://github.com/keichi/binary-parser/blob/master/LICENSE)
+[![build](https://github.com/Inplex-sys/binary-codec/workflows/build/badge.svg)](https://github.com/Inplex-sys/binary-codec/actions?query=workflow%3Abuild)
+[![npm](https://img.shields.io/npm/v/binary-codec)](https://www.npmjs.com/package/binary-codec)
+[![license](https://img.shields.io/github/license/Inplex-sys/binary-codec)](https://github.com/Inplex-sys/binary-codec/blob/master/LICENSE)
 
 Binary-parser is a parser builder and encoder for JavaScript that enables you to write
 efficient binary parsers in a simple and declarative manner.
@@ -639,7 +639,7 @@ and destruct.js is available under `benchmark/`.
 ## Contributing
 
 Please report issues to the
-[issue tracker](https://github.com/keichi/binary-parser/issues) if you have
+[issue tracker](https://github.com/Inplex-sys/binary-codec/issues) if you have
 any difficulties using this module, found a bug, or would like to request a
 new feature. Pull requests are welcome.
 
