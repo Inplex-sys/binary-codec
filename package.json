@@ -1,7 +1,7 @@
 {
-  "name": "binary-parser",
+  "name": "binparse",
   "version": "2.2.1",
-  "description": "Blazing-fast binary parser builder",
+  "description": "Blazing-fast binary parser & encoder",
   "main": "dist/binary_parser.js",
   "module": "dist/esm/binary_parser.mjs",
   "devDependencies": {
