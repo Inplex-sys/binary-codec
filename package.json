@@ -5,7 +5,6 @@
   "module": "lib/binary-codec.ts",
   "devDependencies": {
     "@types/node": "^20.4.2",
-    "prettier": "^3.0.0",
     "@types/bun": "latest"
   },
   "peerDependencies": {
@@ -14,10 +13,6 @@
   "scripts": {
     "test": "bun test"
   },
-  "files": [
-    "dist",
-    "lib"
-  ],
   "keywords": [
     "binary",
     "parser",
