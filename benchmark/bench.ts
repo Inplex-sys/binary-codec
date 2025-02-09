@@ -1,8 +1,9 @@
-import Benchmark from "benchmark";
-import { bp } from "binparse";
-import { Parser } from "../dist/binary_parser.js";
-import Destruct from "destruct-js";
-import Struct from "structron";
+import Benchmark from 'benchmark';
+import { bp } from 'binparse';
+import Destruct from 'destruct-js';
+import Struct from 'structron';
+
+import { Parser } from '../dist/binary_parser.js';
 
 const suite = new Benchmark.Suite();
 

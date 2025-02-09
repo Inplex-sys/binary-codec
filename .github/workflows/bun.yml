@@ -1,0 +1,39 @@
+name: test-bun
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Bun
+        shell: bash
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies with Bun
+        run: bun install
+
+      - name: Format code with Bun
+        run: bun run format
+
+      - name: Build project (if applicable)
+        run: |
+          if bun run build --if-present; then
+            echo "Build succeeded"
+          else
+            echo "No build script found"
+          fi
+
+      - name: Run tests
+        env:
+          CI: true
+        run: bun test

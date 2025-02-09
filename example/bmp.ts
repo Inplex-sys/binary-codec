@@ -1,7 +1,7 @@
 import { readFile } from "fs";
 import { join } from "path";
 
-import { Parser } from "../lib/binary_parser";
+import { Parser } from "../lib/binary-codec";
 
 // C structure BITMAPFILEHEADER
 // typedef struct tagBITMAPFILEHEADER {
@@ -12,15 +12,15 @@ import { Parser } from "../lib/binary_parser";
 //   DWORD bfOffBits;
 // } BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 const bmpFileHeader = new Parser()
-  .endianness("little")
-  .string("type", {
-    length: 2,
-    assert: "BM",
-  })
-  .uint32("size")
-  .uint16("reserved1")
-  .uint16("reserved2")
-  .uint32("offBits");
+    .endianness("little")
+    .string("type", {
+        length: 2,
+        assert: "BM",
+    })
+    .uint32("size")
+    .uint16("reserved1")
+    .uint16("reserved2")
+    .uint32("offBits");
 
 // C structure BITMAPINFOHEADER definition
 // typedef struct tagBITMAPINFOHEADER {
@@ -37,27 +37,27 @@ const bmpFileHeader = new Parser()
 //     DWORD  biClrImportant;
 // } BITMAPINFOHEADER;
 const bmpInfoHeader = new Parser()
-  .endianness("little")
-  .uint32("size")
-  .int32("width")
-  .int32("height")
-  .uint16("planes")
-  .uint16("bitCount")
-  .uint32("compression")
-  .uint32("sizeImage")
-  .int32("xPelsPerMeter")
-  .int32("yPelsPerMeter")
-  .uint32("clrUsed")
-  .uint32("clrImportant");
+    .endianness("little")
+    .uint32("size")
+    .int32("width")
+    .int32("height")
+    .uint16("planes")
+    .uint16("bitCount")
+    .uint32("compression")
+    .uint32("sizeImage")
+    .int32("xPelsPerMeter")
+    .int32("yPelsPerMeter")
+    .uint32("clrUsed")
+    .uint32("clrImportant");
 
 const bmpFile = new Parser()
-  .nest("fileHeader", {
-    type: bmpFileHeader,
-  })
-  .nest("infoHeader", {
-    type: bmpInfoHeader,
-  });
+    .nest("fileHeader", {
+        type: bmpFileHeader,
+    })
+    .nest("infoHeader", {
+        type: bmpInfoHeader,
+    });
 
 readFile(join(__dirname, "test.bmp"), (_, data) => {
-  console.log(bmpFile.parse(data));
+    console.log(bmpFile.parse(data));
 });
