@@ -1,6 +1,6 @@
 {
   "name": "binary-codec",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "description": "Blazing-fast binary parser & encoder",
   "main": "lib/binary-codec.ts",
   "devDependencies": {
