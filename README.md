@@ -31,6 +31,9 @@ and [binary](https://github.com/substack/node-binary).
 
 ## Quick Start
 
+#### Install
+`bun i binary-codec`
+
 1. Create an empty `Parser` object with `new Parser()` or `Parser.start()`.
 2. Chain methods to build your desired parser. (See [API](#api) for detailed
    documentation of each method)
