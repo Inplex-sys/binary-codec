@@ -662,16 +662,16 @@ new feature. Pull requests are welcome.
 To contribute code, first clone this repo, then install the dependencies:
 
 ```bash
-git clone https://github.com/keichi/binary-codec.git
+git clone https://github.com/Inplex-sys/binary-codec.git
 cd binary-codec
-npm install
+bun install
 ```
 
 If you added a feature or fixed a bug, update the test suite under `test/` and
 then run it like this:
 
 ```bash
-npm run test
+bun run test
 ```
 
 Make sure all the tests pass before submitting a pull request.
